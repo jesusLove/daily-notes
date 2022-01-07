@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function create() {
+      // 1. 创建新对象
+      var obj = new Object()
+      // 读取第一个参数，作为构造函数，
+      // shift 会修改数组，arguments 会移除第一个参数
+      var Con = [].shift.call(arguments)
+      // 2. 修改 __ proto__ 指向
+      obj.__proto__ = Con.prototype
+      // 3. 绑定 this 实现继承， obj 可以访问到构造函数中的属性
+      var ret = Con.apply(obj, arguments)
+      return typeof ret === 'object' ? ret : obj
+    }
+    function Person(name) {
+      this.name = name
+    }
+
+    var person = create(Person, 'lee')
+    console.log('模拟 new 对象：', person) 
+
+    var person1 = new Person('qq')
+    console.log('原生 new 对象：', person1) 
+
+  </script>
+</body>
+</html>

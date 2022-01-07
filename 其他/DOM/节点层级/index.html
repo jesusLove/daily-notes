@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>节点层级</title>
+  </head>
+  <body>
+    节点层级
+    <script>
+      const el = document.body
+      console.log('节点类型 el.nodeType：', el.nodeType)
+      console.log('节点名称 el.nodeName:', el.nodeName)
+      console.log('子节点类数组 el.childNodes: ', el.childNodes)
+      console.log('子节点数组 item: ', el.childNodes.item(0))
+      console.log('子节点类数组 childNodes.length：', el.childNodes.length)
+      console.log('类数组转数组 .../Array.from()', [...el.childNodes])
+      console.log('')
+    </script>
+  </body>
+</html>

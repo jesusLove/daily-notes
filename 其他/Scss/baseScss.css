@@ -1,0 +1,53 @@
+.section {
+  margin: 20px auto;
+  width: 80%;
+}
+
+#main {
+  content: "first content";
+  new-content: "new content";
+}
+
+.item-1 {
+  width: 2em;
+}
+
+.item-2 {
+  width: 4em;
+}
+
+.item-3 {
+  width: 6em;
+}
+
+.item2-1 {
+  width: 2em;
+}
+
+.item2-2 {
+  width: 4em;
+}
+
+.puma-icon {
+  background-image: url("./images/puma.png");
+}
+
+.sea-slug-icon {
+  background-image: url("./images/sea-slug.png");
+}
+
+.egret-icon {
+  background-image: url("./images/egret.png");
+}
+
+.sal-icon {
+  background-image: url("./images/sal.png");
+}
+
+.text1 {
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: bold;
+  color: #f00;
+}
+/*# sourceMappingURL=baseScss.css.map */

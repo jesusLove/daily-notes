@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>变量对象</title>
+  </head>
+  <body>
+    <h1>04. 变量对象</h1>
+
+    <h2>执行上下文，三个重要属性：</h2>
+    <ul>
+      <li>变量对象 （variable object, VO）</li>
+      <li>作用域链 （Scope chain）</li>
+      <li>this</li>
+    </ul>
+    <h3>
+      变量对象：上下文相关的数据作用域，存储了其中定义的变量和函数声明。不同上下文中的变量对象稍有不同
+    </h3>
+    <hr />
+    <h2>全局作用域变量对象</h2>
+    <ul>
+      <li>全局上下文变量对象，称为全局对象。</li>
+      <li>全局对象是 JavaScript 预定义的对象。</li>
+      <li>
+        可以在 JavaScript 顶层通过 this 访问全局对象。全局对象是作用域链的头。
+      </li>
+    </ul>
+
+    <h2>函数作用域变量对象</h2>
+
+    函数上下文中，活动对象(Activation object, AO)标识变量对象。
+    <p>
+      活动对象和变量对象是一个东西。区别在于，变量对象是规范上或引擎上的，在
+      JavaScript 中无法访问。
+    </p>
+    <p>
+      当进入执行上下文时，变量对象才被激活，所以成功活动对象（Activation
+      object）。只有激活的变量对象，也就是活动对象才能被访问。
+    </p>
+
+    <p>活动对象在进入函数上下文时被创建，通过函数 arguments 属性初始化。</p>
+
+    <h3>执行上下文两个阶段：分析和执行</h3>
+
+    <h4>分析阶段</h4>
+    <ul>
+      <li>函数的所有形参</li>
+      <li>函数声明</li>
+      <li>变量声明</li>
+    </ul>
+
+    <h2>总结：变量对象创建过程</h2>
+    <ul>
+      <li>1. 全局上下文的变量对象就是全局对象</li>
+      <li>2. 函数上下文的变量对象初始化只有 arguments 对象</li>
+      <li>
+        3. 进入上下文时会给变量对象添加形参、函数声明、变量声明等初始的属性值
+      </li>
+      <li>4. 代码执行阶段，会再次修改变量对象的属性值</li>
+    </ul>
+  </body>
+  <script src="./001.全局上下文.js"></script>
+  <script src="./002.函数上下文.js"></script>
+  <script src="./003.test.js"></script>
+</html>

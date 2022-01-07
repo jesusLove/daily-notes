@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var num = 1
+      function foo() {
+        console.log('a', this.num) // 1
+        this.num = 4
+      }
+      var myObject = {
+        num: 2,
+        add: function () {
+          this.num = 3
+          foo()
+          console.log('b', this.num) // 3
+        },
+        sub: function () {
+          console.log(this.num)
+        },
+      }
+      myObject.add()
+      console.log(myObject.num) // 3
+      console.log(num) // 4
+      var sub = myObject.sub
+      sub() // 4
+    </script>
+  </body>
+</html>

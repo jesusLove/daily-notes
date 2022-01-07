@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var name = 'global'
+    function foo() {
+      console.log(this.name)
+    }
+    var obj = {
+      name:'lee'
+    }
+    function bar() {
+      foo.call(obj) // ! 硬绑定，foo 的 this 指向 obj
+    }
+    function bar1() {
+      foo()
+    }
+    bar() // lee
+    
+    setTimeout(bar, 100) // lee
+    setTimeout(bar1, 100) // global
+    // 硬绑定：无法改变 bar 的 this 指向
+    bar.call(window) // lee 
+    
+  </script>
+  <script>
+    // API 调用的  “上下文”
+
+    function foo2(el) {
+      console.log(el, this.id)
+    }
+    var obj2 = {
+      id: 'awesome'
+    }
+    var myArray = [1,2,3,4]
+    myArray.forEach(foo2, obj2)
+  </script>
+</body>
+</html>

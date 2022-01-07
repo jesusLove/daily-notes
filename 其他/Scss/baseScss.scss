@@ -1,0 +1,48 @@
+.section {
+  margin: 20px auto;
+  width: 80%;
+}
+
+// 变量定义
+// !default ： content 未赋值时赋值；已赋值不做修改。
+$content: 'first content';
+$content: 'second content' !default;
+$new_content: 'new content' !default;
+
+#main {
+  content: $content;
+  new-content: $new_content;
+}
+
+// @for: 1 , 2, 3 三个元素
+@for $i from 1 through 3 {
+  .item-#{$i} {
+    width: 2em * $i;
+  }
+}
+// @for 1, 2 两个元素
+@for $i from 1 to 3 {
+  .item2-#{$i} {
+    width: 2em * $i;
+  }
+}
+
+// @each 遍历
+@each $i in puma, sea-slug, egret, sal {
+  .#{$i}-icon {
+    background-image: url('./images/#{$i}.png');
+  }
+}
+
+@mixin large-text {
+  font: {
+    family: Arial;
+    size: 20px;
+    weight: bold;
+  }
+  color: #f00;
+}
+
+.text1 {
+  @include large-text;
+}

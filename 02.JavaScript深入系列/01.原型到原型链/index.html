@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>01.原型到原型链</h1>
+    <h2>prototype、__proto__、constructor</h2>
+    <ul>
+      <li>
+        每个函数都有一个 prototype 属性, 指向实例对象原型 Person.prototype
+      </li>
+      <li>
+        实例对象 __proto__ 属性指向其原型对象，和构造函数 prototype
+        属性指向相同。由于 __proto__ 非标准，使用 Object.getPrototypeOf()
+        函数代替
+      </li>
+      <li>原型对象通过 constructor 属性可以获取到构造函数</li>
+      <li>原型链核心 => __proto__</li>
+    </ul>
+    <h2>鸡生蛋、蛋生鸡问题</h2>
+    <pre>
+      <code> Function.__proto__ === Function.prototype </code>
+    </pre>
+    <ul>
+      <li>Function 作为内置对象，运行前就已经存在</li>
+      <li>目的：为了风格统一、表明关系</li>
+    </ul>
+  </body>
+  <script src="./001.prototype.js"></script>
+  <script src="./002.__proto__.js"></script>
+  <script src="./003.constructor.js"></script>
+  <script src="./004.实例与原型.js"></script>
+</html>

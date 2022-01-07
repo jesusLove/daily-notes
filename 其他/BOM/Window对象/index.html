@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 通过 var 声明的属性和方法会被添加到 Window对象上
+    var age = 28
+    var sayAge = () => console.log(this.age) // this.age 映射到 window.age
+    window.sayAge()
+
+    // var 改为 let 后，不会加载 window 中
+    let address = 'Qingdao'
+    console.log(window.address) // undefined
+
+    // 窗口大小
+    console.log(window.innerWidth)
+  </script>
+</body>
+</html>

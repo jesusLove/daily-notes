@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <section class=".slideOne">
+    <div class="slideOne">
+      <input type="checkbox" value="None" id="slideOne" name="check" checked>
+      <label for="slideOne"></label>
+    </div>
+  </section>
+  <section class=".slideTwo">
+    <div class="slideTwo">
+      <input type="checkbox" value="None" id="slideTwo" name="check" checked>
+      <label for="slideTwo"></label>
+    </div>
+  </section>
+  <section class=".slideThree">
+    <div class="slideThree">
+      <input type="checkbox" value="None" id="slideThree" name="check" checked>
+      <label for="slideThree"></label>
+    </div>
+  </section>
+</body>
+<style>
+  body {
+    background-color: antiquewhite;
+  }
+  .slideOne {
+    width: 50px;
+    height: 10px;
+    background: #333;
+    margin: 20px auto;
+    position: relative;
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+  }
+  .slideOne label {
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    cursor: pointer;
+    background: #fcfff4;
+    background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    border-radius: 50px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+  }
+  .slideOne input[type=checkbox] {
+    visibility: hidden;     
+  }
+  .slideOne input[type=checkbox]:checked + label {
+    left: 37px;
+  }
+
+  /* 第二个 */
+  .slideTwo {
+    width: 70px;
+    height: 30px;
+    background: #333;
+    margin: 0 auto;
+    position:relative;
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+  }
+  .slideTwo::after {
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 40px;
+    top:  14px;
+    left: 15px;
+    background: #111;
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5),
+      0px 1px 0px rgba(255, 255, 255, 0.2);
+  }
+  .slideTwo label {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 5px;
+    top: 5px;
+    background-color: white;
+    border-radius: 50px;
+    transition: all 0.5s ease;
+    z-index: 1;
+  }
+  .slideTwo label::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: #333;
+    border-radius: 50px;
+  }
+  .slideTwo input[type='checkbox'] {
+    visibility: hidden;
+  }
+  .slideTwo input[type='checkbox']:checked + label{
+    left: 45px;
+  }
+  .slideTwo input[type='checkbox']:checked + label::after {
+    background-color: #27ae60;
+  }
+  /* 第三个 */
+  .slideThree {
+    width: 20px;
+    position: relative;
+    margin: 20px auto;
+  }
+  .slideThree label {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: red;
+    cursor: pointer;
+    border-radius: 4px;
+    background: linear-gradient(to top, #222 0%, #45484d 100%);
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(0, 0, 0, 0.4);
+  }
+  .slideThree label::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 9px;
+    height: 5px;
+    border: 3px solid salmon;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    transform: rotate(-45deg);
+    opacity: 0;
+  }
+  .slideThree label:hover::after {
+    opacity: 0.3;
+  }
+  .slideThree input[type="checkbox"] {
+    visibility: hidden;
+  }
+  .slideThree input[type="checkbox"]:checked + label::after {
+    opacity: 1;
+  }
+</style>
+</html>
