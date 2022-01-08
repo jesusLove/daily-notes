@@ -38,4 +38,8 @@ Recoil 创建一个数据流向图，从 Atom 到 selector，再流向 React 组
 
 #### Atom
 
+相当于 useState 可以在多个组件间数据共享。
+
 #### Selector
+
+代表 Atom 的派生状态，纯函数。
