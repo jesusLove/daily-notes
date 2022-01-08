@@ -1,70 +1,164 @@
-# Getting Started with Create React App
+# Context
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+提供一种组件共享数据的解决方案。
 
-## Available Scripts
+## 实现 I18n 国际化
 
-In the project directory, you can run:
+### 1. 定义 Context
 
-### `npm start`
+`./locales/I18nContext.js` 文件封装 Context 对象：
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```js
+import { createContext } from 'react'
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+const I18nContext = createContext({
+  translate: () => '', // 获取键值
+  getLocale: () => {}, // 获取语言
+  setLocale: () => {} // 设置语言
+})
 
-### `npm test`
+export default I18nContext
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. 封装 Provider 组件简化代码
 
-### `npm run build`
+封装 Provider 组件，接收一个 value 参数，传递给消费者。一个 Provider 可以有多个消费者；Provider 也可以嵌套使用，里层的会覆盖外层的数据。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+当 Provider 的 value 发生改变时，所有的消费组件都会重新渲染。消费者组件更新不受 `shouldComponentUpdate` 函数影响。
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+实现 `./locales/I18nProvider.js`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```js
+import React from 'react'
 
-### `npm run eject`
+import I18nContext from './I18nContext'
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+class I18nProvider extends React.Component {
+  // 可以将数据存储到 WebStorage 中。
+  state = {
+    locale: 'zh-CN'
+  }
+  render() {
+    const { locale } = this.state
+    const i18n = {
+      translate: (key) => this.props.languages[locale][key],
+      getLocale: () => locale,
+      setLocale: (locale) => this.setState({ locale })
+    }
+    return (
+      <I18nContext.Provider value={i18n}>
+        {this.props.children}
+      </I18nContext.Provider>
+    )
+  }
+}
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+export default I18nProvider
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3. 封装消费者，高阶组件避免重复代码
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+共享 Context 数据，需要针对每一个组件包装一次消费者，会有大量重复代码。通过高阶组件封装减少重复代码数量。
 
-## Learn More
+实现 `./locales/withI18n.js`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```js
+import React from 'react'
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+import I18nContext from './I18nContext'
 
-### Code Splitting
+const withI18n = (WrappedComponent) => {
+  return (props) => (
+    <I18nContext.Consumer>
+      {(i18n) => <WrappedComponent {...i18n} {...props} />}
+    </I18nContext.Consumer>
+  )
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+export default withI18n
+```
 
-### Analyzing the Bundle Size
+### 4. 注入 Provider
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+在 `./index.js` 中
 
-### Making a Progressive Web App
+```js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './App'
+import { I18nProvider } from './locales/i18n'
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+// 1. 语言种类
+const locales = ['en-US', 'zh-CN']
+// 2. 语言 json 文件
+const languages = {
+  'en-US': require('./locales/languages/en-US'),
+  'zh-CN': require('./locales/languages/zh-CN')
+}
 
-### Advanced Configuration
+ReactDOM.render(
+  // 注册
+  <I18nProvider locales={locales} languages={languages}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </I18nProvider>,
+  document.getElementById('root')
+)
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+`locals/languages` 文件夹中定义中英文 json 数据。
 
-### Deployment
+```json
+// en-US.json
+{
+  "title": "Title"
+}
+// zh-CN.json
+{
+  "title": "标题"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 5. 使用 Context 国际化
 
-### `npm run build` fails to minify
+在 App.js 中测试国际化是否生效。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```js
+import { withI18n } from './locales/i18n'
+
+function App() {
+  return (
+    <div className='App'>
+      <h1>Context 实现 i18n</h1>
+      <Title />
+      <Footer />
+    </div>
+  )
+}
+export default App
+
+// 使用
+const Title = withI18n(({ translate }) => {
+  return <div>{translate('title')}</div>
+})
+
+// 切换语言
+const Footer = withI18n(({ setLocale, getLocale }) => {
+  const locale = getLocale()
+  return (
+    <button
+      onClick={() => {
+        setLocale(locale === 'zh-CN' ? 'en-US' : 'zh-CN')
+      }}
+    >
+      切换语言
+    </button>
+  )
+})
+```
+
+## 小结
+
+通过 `i18n` 国际化理解 Context 实现原理。
