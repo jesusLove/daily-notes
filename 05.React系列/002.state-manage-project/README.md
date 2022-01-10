@@ -36,10 +36,48 @@ Recoil 创建一个数据流向图，从 Atom 到 selector，再流向 React 组
 - Atom 组件可以订阅的 state 单位。
 - Selector 可以同步或异步改变 state。
 
+```js
+// 定义 Atom：代表一个状态
+// 使用 useRecoilState 读取和修改值。
+const textState = atom({
+  key: 'textState',
+  default: ''
+})
+
+// selector 代表一个派生状态。
+// 通过 `useRecoilValue` 的 hook，来读取 charCountState 的值。
+// 这个 selector 无法修改所以不能使用 useRecoilState 函数。
+const charCountState = selector({
+  key: 'charCountState',
+  get: ({ get }) => {
+    const text = get(textState)
+    return text.length
+  }
+})
+```
+
+使用 Atom 和 Selector 如下：
+
+```js
+// Atom 通过 useRecoilState 函数读取和设置。
+const [text, setText] = useRecoilState(textState)
+
+// 该 selector 只有 get 方法，使用 useRecoilValue 读取值
+const count = useRecoilValue(charCountState)
+```
+
+> useRecoilValue : 仅用于读取值
+> useRecoilState : 用于读取和写入值
+> useSetRecoilState : 仅用于写入值
+
 #### Atom
 
 相当于 useState 可以在多个组件间数据共享。
 
+> 参考示例 todos
+
 #### Selector
 
 代表 Atom 的派生状态，纯函数。
+
+> 参考示例 todos
