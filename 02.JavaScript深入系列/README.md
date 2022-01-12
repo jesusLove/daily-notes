@@ -86,6 +86,8 @@ Scope = [AO].concat([[Scope]])
 
 # 07. 执行上下文
 
+执行上下文三个重要属性：变量对象、作用域链、this。
+
 例子：
 
 ```js
@@ -120,10 +122,10 @@ ECStack = [
 ]
 
 // 5. checkscope 函数执行上下文初始化
-// 复制函数 [[scope]] 属性创建作用域链，
-// 用 arguments 创建活动对象，
-// 初始化活动对象，即加入形参、函数声明、变量声明，
-// 将活动对象压入 checkscope 作用域链顶端。
+// 1. 复制函数 [[scope]] 属性创建作用域链，
+// 2. 用 arguments 创建活动对象，
+// 3. 初始化活动对象，即加入形参、函数声明、变量声明，
+// 4. 将活动对象压入 checkscope 作用域链顶端。
 // 同时 f 函数被创建，保存作用域链到 f 函数内部属性[[scope]]
 
 checkscopeContext = {
@@ -188,3 +190,46 @@ function checkscope() {
 }
 checkscope()()
 ```
+
+# 08. 闭包
+
+ECMAScript 中，闭包指的是：
+
+1. 理论角度：所有的函数都是闭包。
+2. 实践角度：即使上下文已经销毁，仍然存在；代码中引用自由变量。
+
+还是 《JavaScript 权威指南》 例子
+
+```js
+var scope = 'global scope'
+function checkscope() {
+  var scope = 'local scope'
+  function f() {
+    return scope
+  }
+  return f
+}
+var foo = checkscope()
+foo()
+```
+
+执行过程：
+
+1. 进入全局代码，创建全局上下文，全局上下文压入栈中。
+2. 全局上下文初始化
+3. 执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 执行上下文压入执行栈中。
+4. checkscope 执行上下文初始化，创建变量对象，作用域链、this 等。
+5. checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出。
+6. 执行 f 函数，创建 f 函数执行上下文，f 执行上下文压入执行上下文栈。
+7. f 执行上下文初始化，创建变量对象、作用域链、this 等
+8. f 函数执行完毕，f 函数上下文从执行上文栈中弹出。
+
+f 函数上下文维护一个作用域链：
+
+```js
+fContext = {
+  Scope: [AO, checkscopeContext.AO, globalContext.VO]
+}
+```
+
+通过 Scope 作用域链 f 函数可以读取到 checkScopeContext.AO 的值， f 函数引用了 checkscopeContext.AO 即使上下文销毁，依然可以读取的值。
