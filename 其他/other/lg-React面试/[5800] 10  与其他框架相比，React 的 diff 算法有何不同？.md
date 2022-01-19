@@ -28,12 +28,15 @@
 <h4 data-nodeid="29621">Diff 算法</h4>
 <p data-nodeid="29622">首先主角当然是“diff 算法”，但讨论 diff 算法一定是建立在虚拟 DOM 的基础上的。第 09 讲“Virtual DOM 的工作原理是什么？”讲过，使用虚拟 DOM 而非直接操作真实 DOM 是现代前端框架的一个基本认知。</p>
 <p data-nodeid="29623">而 diff 算法探讨的就是虚拟 DOM 树发生变化后，生成 DOM 树更新补丁的方式。它通过对比新旧两株虚拟 DOM 树的变更差异，将更新补丁作用于真实 DOM，以最小成本完成视图更新。</p>
+
 <p data-nodeid="29624"><img src="https://s0.lgstatic.com/i/image/M00/8C/55/CgqCHl_qyouAAkb9AAB_cmWuZhc920.png" alt="Drawing 3.png" data-nodeid="29783"></p>
+
 <p data-nodeid="29625">具体的流程是这样的：</p>
 <ul data-nodeid="29626">
 <li data-nodeid="29627">
 <p data-nodeid="29628">真实 DOM 与虚拟 DOM 之间存在一个映射关系。这个映射关系依靠初始化时的 JSX 建立完成；</p>
 </li>
+
 <li data-nodeid="29629">
 <p data-nodeid="29630">当虚拟 DOM 发生变化后，就会根据差距计算生成 patch，这个 patch 是一个结构化的数据，内容包含了增加、更新、移除等；</p>
 </li>
@@ -43,6 +46,7 @@
 </ul>
 <p data-nodeid="29633"><img src="https://s0.lgstatic.com/i/image/M00/8C/55/CgqCHl_qypGAZPuGAADYrK9nkJY878.png" alt="Drawing 4.png" data-nodeid="29790"></p>
 <p data-nodeid="29634">举一个简单易懂的例子：</p>
+
 <pre class="lang-java" data-nodeid="29635"><code data-language="java">import React from 'react'
 
 export default class ExampleComponent extends React.Component {
@@ -54,6 +58,7 @@ export default class ExampleComponent extends React.Component {
   }
 }
 </code></pre>
+
 <p data-nodeid="29636">这里，首先我们假定 ExampleComponent 可见，然后再改变它的状态，让它不可见 。映射为真实的 DOM 操作是这样的，React 会创建一个 div 节点。</p>
 <pre class="lang-java" data-nodeid="29637"><code data-language="java"> &lt;div class="visible"&gt;visbile&lt;/div&gt;
 </code></pre>
@@ -160,69 +165,87 @@ export default class ExampleComponent extends React.Component {
 
 ### 精选评论
 
-##### **贵：
-> 这么好的文章，为啥评论交流的小伙伴这么少😂
+##### \*\*贵：
 
-##### **举：
-> 很棒，总结的很到位，有个地方: 优化策略策略二中的，如果组件 class 一致，这里您说的 class 是指的虚拟 dom 的 ＄type 吧？我还以为是 CSS 样式类名呢。
+> 这么好的文章，为啥评论交流的小伙伴这么少 😂
 
-##### **生：
+##### \*\*举：
+
+> 很棒，总结的很到位，有个地方: 优化策略策略二中的，如果组件 class 一致，这里您说的 class 是指的虚拟 dom 的 ＄ type 吧？我还以为是 CSS 样式类名呢。
+
+##### \*\*生：
+
 > 每次看都有着不同的心得，这才是一个好的专栏，值得回味
 
-##### **辉：
-> 问下react 列表 这里diff 是如何判断出变化的？ 是通过兄弟指针么？
+##### \*\*辉：
 
- ###### &nbsp;&nbsp;&nbsp; 讲师回复：
+> 问下 react 列表 这里 diff 是如何判断出变化的？ 是通过兄弟指针么？
+
+###### &nbsp;&nbsp;&nbsp; 讲师回复：
+
 > &nbsp;&nbsp;&nbsp; 不需要，列表的话直接按顺序对比即可，用 key 可以优化子节点及比对过程。
-如果我解释的不够清楚，可以查看 React 官网文档（https://zh-hans.reactjs.org/docs/reconciliation.html）对子节点进行递归部分。
+> 如果我解释的不够清楚，可以查看 React 官网文档（https://zh-hans.reactjs.org/docs/reconciliation.html）对子节点进行递归部分。
 
-##### **清：
-> O(N的3次）是怎么算
+##### \*\*清：
 
- ###### &nbsp;&nbsp;&nbsp; 讲师回复：
+> O(N 的 3 次）是怎么算
+
+###### &nbsp;&nbsp;&nbsp; 讲师回复：
+
 > &nbsp;&nbsp;&nbsp; 树的编辑距离算法，三言两语说不太清楚，可以看下这篇文章的介绍 https://www.zhihu.com/question/66851503/answer/246766239。
-如果希望阅读原文的话，可以先看原文《Reconciliation》（https://reactjs.org/docs/reconciliation.html）中的 the state of the art algorithms have a complexity in the order of O(n3) where n is the number of elements in the tree.
-这里的O(n3)出自论文《A Survey on Tree Edit Distance and Related
-Problems》（https://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf）
+> 如果希望阅读原文的话，可以先看原文《Reconciliation》（https://reactjs.org/docs/reconciliation.html）中的 the state of the art algorithms have a complexity in the order of O(n3) where n is the number of elements in the tree.
+> 这里的 O(n3)出自论文《A Survey on Tree Edit Distance and Related
+> Problems》（https://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf）
 
-##### *瑞：
+##### \*瑞：
+
 > 您好，老师。想问一下这句话”策略二：如果组件的 class 一致，则默认为相似的树结构，否则默认为不同的树结构。“中的 class 是什么？虽然后面有过程讲解但是还是不太清楚。其中又提到”类型“，这里的类型是指什么？有哪些？用户申明的还是 React 内部定义的？
 
- ###### &nbsp;&nbsp;&nbsp; 讲师回复：
-> &nbsp;&nbsp;&nbsp; 这里的 class  是指 classComponent，这里的类型是指是否是同一种 classComponent。如果我有讲解不清的地方，欢迎继续留言，我会尽力回答。
+###### &nbsp;&nbsp;&nbsp; 讲师回复：
 
-##### **6400：
+> &nbsp;&nbsp;&nbsp; 这里的 class 是指 classComponent，这里的类型是指是否是同一种 classComponent。如果我有讲解不清的地方，欢迎继续留言，我会尽力回答。
+
+##### \*\*6400：
+
 > 老师，为什么广度优先遍历可能会导致组件的生命周期时序错乱呢
 
- ###### &nbsp;&nbsp;&nbsp; 讲师回复：
+###### &nbsp;&nbsp;&nbsp; 讲师回复：
+
 > &nbsp;&nbsp;&nbsp; 广度优先是先横向遍历，但 React 是一层一层嵌套的，就像剥蒜一样。如果横向优先处理，就会先平行处理兄弟组件，内部的嵌套层级会延后。
-生命周期的调度策略将会变得十分复杂，不再是一个递归策略就能解决的。但如果以后续的 fiber 或 React 17.x 的 lane 可能问题就那么大了。 
-以上仅仅是我的个人见解，如果还有疑问的话，欢迎继续留言。
+> 生命周期的调度策略将会变得十分复杂，不再是一个递归策略就能解决的。但如果以后续的 fiber 或 React 17.x 的 lane 可能问题就那么大了。
+> 以上仅仅是我的个人见解，如果还有疑问的话，欢迎继续留言。
 
-##### **杰：
-> 很奇怪引入VDOM的思想不也是考虑到大批量节点操作更新的时候性能会比直接操作真实DOM要更好吗，那么基于这个思想为什么Vue3不引入Fiber时间切片更新机制呢，还有一个是现在Vue3使用了静态节点标记的方式，那这种方式是不是会比Fiber性能更加的好?
+##### \*\*杰：
 
- ###### &nbsp;&nbsp;&nbsp; 讲师回复：
+> 很奇怪引入 VDOM 的思想不也是考虑到大批量节点操作更新的时候性能会比直接操作真实 DOM 要更好吗，那么基于这个思想为什么 Vue3 不引入 Fiber 时间切片更新机制呢，还有一个是现在 Vue3 使用了静态节点标记的方式，那这种方式是不是会比 Fiber 性能更加的好?
+
+###### &nbsp;&nbsp;&nbsp; 讲师回复：
+
 > &nbsp;&nbsp;&nbsp; 这一点尤雨溪回答过，他的结论是 Vue 3 的性能就是比 React 好，基于响应式的设计减少了大量复杂的运算，优化在框架层做了完美的解决。
-具体到底谁的设计更好，个人感觉前端框架一直缺少一个公允通用的 benchmark 测试，缺少不服跑个分的实践基础。
-以上仅是个人看法，在面试的时候，也可以适度表达一下个人的见解，但需要注意，切忌过度贬低某一技术栈。
+> 具体到底谁的设计更好，个人感觉前端框架一直缺少一个公允通用的 benchmark 测试，缺少不服跑个分的实践基础。
+> 以上仅是个人看法，在面试的时候，也可以适度表达一下个人的见解，但需要注意，切忌过度贬低某一技术栈。
 
-##### **梁：
+##### \*\*梁：
+
 > 面试中遇到过这种问题确实
 
-##### *伟：
+##### \*伟：
+
 > 对比的很好，节省了我们自己总结的时间了。
 
-##### **举：
-> 老师，那 React 使用策略进行分治法优化之后，为啥复杂度变成了 O(n),这个O(n) 又是如何计算的呢？
+##### \*\*举：
 
- ###### &nbsp;&nbsp;&nbsp; 讲师回复：
+> 老师，那 React 使用策略进行分治法优化之后，为啥复杂度变成了 O(n),这个 O(n) 又是如何计算的呢？
+
+###### &nbsp;&nbsp;&nbsp; 讲师回复：
+
 > &nbsp;&nbsp;&nbsp; 在本文中有提到，主要通过三个方式实现：忽略跨层移动、只做同层比较，同层子节点用 key 比对。
-这个 O(n) 是因为变成了线性一一比对而得来的。
+> 这个 O(n) 是因为变成了线性一一比对而得来的。
 
-##### **梁：
-> vue3里面增加了静态节点的标记，性能上进一步提升。
+##### \*\*梁：
 
-##### *盼：
+> vue3 里面增加了静态节点的标记，性能上进一步提升。
+
+##### \*盼：
+
 > 老师的思路太赞了
-
