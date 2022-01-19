@@ -4,7 +4,7 @@
 // JavaScript自有的字符串远远不能满足这些需求，于是Buffer对象应运而生。
 
 // ? 一、Buffer 结构：像 Array 对象，主要用于操作字节。
-
+// 源码 => Uint8Array
 // 模块结构：JavaScript 和 C++ 结合实现，性能相关部分使用 C++，非性能部分使用 JavaScript。
 const { Buffer } = require('buffer')
 const str = '你好Buffer'
