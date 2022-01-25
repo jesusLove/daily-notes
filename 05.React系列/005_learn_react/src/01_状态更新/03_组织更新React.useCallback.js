@@ -13,19 +13,15 @@ const Home = (props) => {
   //   console.log('click Header')
   // }, [])
 
-
   // ! 问题来了，如果 clickHeader 中需要使用 count 会怎样呢
   const clickHeader = React.useCallback(() => {
     console.log('click header', count)
   }, [count])
-  
+
   // ! 为了 clickHeader 能输出 count 最新的值，需要在将 count 添加到依赖数组中。
   // ! 这样会导致 count改变，Header 就会重新渲染。
-  
+
   // !! 如何解决这个问题？
-
-
-
   return (
     <div>
       <div>
