@@ -34,13 +34,13 @@ module.exports = defineConfig({
         symbolId: 'icon-[name]'
       })
       .end()
-  },
-  devServer: {
-    proxy: {
-      '/api': {
-        target: '', // <--- -- 服务地址
-        changeOrigin: true
-      }
-    }
   }
+  // devServer: {
+  //   proxy: {
+  //     '/api': {
+  //       target: '', // <--- -- 服务地址
+  //       changeOrigin: true
+  //     }
+  //   }
+  // }
 })
