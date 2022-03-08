@@ -1,8 +1,6 @@
 <template>
   <div class="">
-    <h1 class="logo-title">
-      {{ $t('msg.test') }}
-    </h1>
+    <h1 class="logo-title">哈哈</h1>
   </div>
 </template>
 <script setup>

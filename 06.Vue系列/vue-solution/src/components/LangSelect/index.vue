@@ -5,7 +5,7 @@
     @command="handleSetLanguage"
   >
     <div>
-      <el-tooltip content="国际化">
+      <el-tooltip :content="$t('msg.navBar.lang')" :effect="effect">
         <svg-icon icon="language" />
       </el-tooltip>
     </div>
@@ -25,6 +25,16 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
+
+defineProps({
+  effect: {
+    type: String,
+    default: 'dark',
+    validator(value) {
+      return ['dark', 'light'].indexOf(value) !== -1
+    }
+  }
+})
 
 const store = useStore()
 const language = computed(() => store.getters.language)
