@@ -18,7 +18,7 @@
             </router-link>
             <el-dropdown-item>哈哈哈</el-dropdown-item>
           </el-dropdown-menu>
-          <el-dropdown-item divided>退出登录</el-dropdown-item>
+          <el-dropdown-item divided @click="logout">退出登录</el-dropdown-item>
         </template>
       </el-dropdown>
     </div>
@@ -27,6 +27,12 @@
 <script setup>
 import {} from 'vue'
 import LangSelect from '@/components/LangSelect/index.vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+const logout = () => {
+  store.dispatch('user/logout')
+}
 </script>
 <style lang="scss" scoped>
 .navbar {
