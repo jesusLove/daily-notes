@@ -18,7 +18,12 @@ module.exports = defineConfig({
       Components({
         resolvers: [ElementPlusResolver()]
       })
-    ]
+    ],
+    resolve: {
+      fallback: {
+        path: require.resolve('path-browserify')
+      }
+    }
   },
   chainWebpack(config) {
     // 设置 svg-sprite-loader
