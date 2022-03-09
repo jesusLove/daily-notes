@@ -1,19 +1,17 @@
 <template>
-  <div class="sidebar-item">
-    <el-sub-menu v-if="route.children.length > 0" :index="route.path">
-      <template #title>
-        <menu-item :title="route.meta.title" :icon="route.meta.icon" />
-      </template>
-      <sidebar-item
-        v-for="item in route.children"
-        :key="item.path"
-        :route="item"
-      />
-    </el-sub-menu>
-    <el-menu-item v-else :index="route.path">
+  <el-sub-menu v-if="route.children.length > 0" :index="route.path">
+    <template #title>
       <menu-item :title="route.meta.title" :icon="route.meta.icon" />
-    </el-menu-item>
-  </div>
+    </template>
+    <sidebar-item
+      v-for="item in route.children"
+      :key="item.path"
+      :route="item"
+    />
+  </el-sub-menu>
+  <el-menu-item v-else :index="route.path">
+    <menu-item :title="route.meta.title" :icon="route.meta.icon" />
+  </el-menu-item>
 </template>
 <script setup>
 import {} from 'vue'
@@ -25,8 +23,4 @@ defineProps({
   }
 })
 </script>
-<style lang="scss" scoped>
-.sidebar-item {
-  font-size: 18px;
-}
-</style>
+<style lang="scss" scoped></style>
