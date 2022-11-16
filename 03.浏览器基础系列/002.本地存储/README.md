@@ -16,6 +16,23 @@ Cookie 用来做状态存储，有很多致命缺陷：
 - 性能缺陷：同域名下所有请求都携带 Cookie 信息，造成资源浪费。
 - 安全缺陷：明文传输，容易被非法截获篡改。HttpOnly 为 false 时，可以直接通过 JS 读取 Cookie 信息。
 
+### 代码演示
+
+在 `express` 中，定义一个接口，设置 `cookie` 内容：
+
+```js
+router.get("/cookie", (req, res, next) => {
+  res.cookie("name", "aaaaa", { maxAge: 60000, httpOnly: true });
+  res.send("cookie is set up");
+});
+```
+
+响应头：
+```
+Set-Cookie: name=aaaaa; Max-Age=60; Path=/; Expires=Tue, 15 Nov 2022 10:20:33 GMT; HttpOnly
+```
+自动存储到浏览器中，查看 Application -> Cookies -> 当前路径
+
 ## Local Stroage
 
 localStorage 和 Cookie 一样是针对域名的存储。和 Cookie 有很多区别：
