@@ -1,0 +1,35 @@
+# Anime.js 内置的缓动函数列表
+
+| 缓动函数           | 描述                                                   |
+| ------------------ | ------------------------------------------------------ |
+| `linear`           | 线性变化，保持匀速。                                   |
+| `easeInQuad`       | 二次方缓入，初始时变化缓慢，后期加速。                 |
+| `easeOutQuad`      | 二次方缓出，初始时变化较快，后期减速。                 |
+| `easeInOutQuad`    | 二次方缓入缓出，动画开始和结束时变化缓慢，中间时加速。 |
+| `easeInCubic`      | 三次方缓入。                                           |
+| `easeOutCubic`     | 三次方缓出。                                           |
+| `easeInOutCubic`   | 三次方缓入缓出。                                       |
+| `easeInQuart`      | 四次方缓入。                                           |
+| `easeOutQuart`     | 四次方缓出。                                           |
+| `easeInOutQuart`   | 四次方缓入缓出。                                       |
+| `easeInQuint`      | 五次方缓入。                                           |
+| `easeOutQuint`     | 五次方缓出。                                           |
+| `easeInOutQuint`   | 五次方缓入缓出。                                       |
+| `easeInSine`       | 正弦缓入。                                             |
+| `easeOutSine`      | 正弦缓出。                                             |
+| `easeInOutSine`    | 正弦缓入缓出。                                         |
+| `easeInExpo`       | 指数缓入。                                             |
+| `easeOutExpo`      | 指数缓出。                                             |
+| `easeInOutExpo`    | 指数缓入缓出。                                         |
+| `easeInCirc`       | 圆形缓入。                                             |
+| `easeOutCirc`      | 圆形缓出。                                             |
+| `easeInOutCirc`    | 圆形缓入缓出。                                         |
+| `easeInBack`       | 回退缓入，动画初始时略微超过目标值，然后再回到目标值。 |
+| `easeOutBack`      | 回退缓出，动画结束时略微超过目标值，然后再回到目标值。 |
+| `easeInOutBack`    | 回退缓入缓出。                                         |
+| `easeInElastic`    | 弹性缓入。                                             |
+| `easeOutElastic`   | 弹性缓出。                                             |
+| `easeInOutElastic` | 弹性缓入缓出。                                         |
+| `easeInBounce`     | 弹跳缓入。                                             |
+| `easeOutBounce`    | 弹跳缓出。                                             |
+| `easeInOutBounce`  | 弹跳缓入缓出。                                         |

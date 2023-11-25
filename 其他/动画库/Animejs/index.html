@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      background-color: #2c3e50;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dot {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(to bottom right, #e74c3c, #3498db, #2ecc71);
+      transform-origin: center;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const createDots = (numDots) => {
+      const dots = [];
+      for (let i = 0; i < numDots; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        document.body.appendChild(dot);
+        dots.push(dot);
+      }
+      return dots;
+    };
+
+    const dots = createDots(50);
+
+    anime({
+      targets: dots,
+      translateX: () => anime.random(-window.innerWidth, window.innerWidth),
+      translateY: () => anime.random(-window.innerHeight, window.innerHeight),
+      scale: () => anime.random(0.5, 2),
+      duration: 3000,
+      easing: 'easeInOutQuad',
+      loop: true,
+      direction: 'alternate',
+      opacity: () => anime.random(0.3, 1),
+      rotate: () => anime.random(-180, 180),
+      delay: anime.stagger(100),
+    });
+  </script>
+</body>
+</html>
